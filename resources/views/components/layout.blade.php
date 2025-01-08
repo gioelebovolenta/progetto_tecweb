@@ -30,8 +30,9 @@
                 @endguest
     
                 @auth
-                    <form method="POST" action="/logout">
+                    <form method="POST" action="/logout" class="flex space-x-2">
                         @csrf
+                        <x-form-button>Profilo</x-form-button>
                         <x-form-button>Log out</x-form-button>
                     </form>
                 @endauth
