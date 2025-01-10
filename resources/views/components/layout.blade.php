@@ -32,10 +32,22 @@
                 @auth
                     <form method="POST" action="/logout" class="flex space-x-2">
                         @csrf
-                        <x-form-button>Profilo</x-form-button>
-                        <x-form-button>Log out</x-form-button>
+                        <!-- Pulsante per la dashboard -->
+                        <x-form-button :action="auth()->user()->email === config('app.admin_email') 
+                            ? route('admin.dashboard') 
+                            : route('user.dashboard')">
+                            Dashboard
+                        </x-form-button>
+
+                        <!-- Pulsante per il logout -->
+                        <x-form-button>
+                            Log out
+                        </x-form-button>
                     </form>
                 @endauth
+
+
+
             </div>
         </nav>
     </div>
