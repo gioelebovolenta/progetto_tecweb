@@ -7,10 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = [
+        'title',
+        'description',
+        'price',
+        'subject',
+        'type',
+        'file_path',
+        'pages',
+        'user_id',
+    ];
 }

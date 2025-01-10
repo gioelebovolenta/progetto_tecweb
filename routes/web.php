@@ -4,10 +4,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\AdminMiddleware; 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', [ProductController::class, 'index']);
+
+Route::get('/products/create', [ProductController::class, 'create'])->middleware('auth');
+Route::post('/products', [ProductController::class, 'store'])->middleware('auth');
+Route::get('/products/published', function () {
+    return view('products.published');
 });
+
+Route::get('/search', SearchController::class);
 
 // Rotta per la dashboard con reindirizzamento basato sul ruolo
 Route::get('/dashboard', function () {

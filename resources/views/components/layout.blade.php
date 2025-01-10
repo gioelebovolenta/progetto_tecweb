@@ -18,7 +18,7 @@
                 </a>
             </div>
 
-            <div class="flex-1 text-center ml-16">
+            <div class="flex-1 text-center ml-6">
                 <h1 class="text-white text-3xl font-bold">Fai fruttare i tuoi appunti!</h1>
             </div>
     
@@ -28,26 +28,27 @@
                     <x-nav-link href="/login" :active="request()->is('login')">Accedi</x-nav-link>
                     <x-nav-link href="/register" :active="request()->is('register')">Registrati</x-nav-link>
                 @endguest
-    
+            
                 @auth
-                    <form method="POST" action="/logout" class="flex space-x-2">
-                        @csrf
-                        <!-- Pulsante per la dashboard -->
-                        <x-form-button :action="auth()->user()->email === config('app.admin_email') 
-                            ? route('admin.dashboard') 
-                            : route('user.dashboard')">
+                    <!-- Modulo separato per il pulsante Dashboard -->
+                    <form method="GET" action="{{ auth()->user()->email === config('app.admin_email') 
+                        ? route('admin.dashboard') 
+                        : route('user.dashboard') }}">
+                        <x-form-button>
                             Dashboard
                         </x-form-button>
-
-                        <!-- Pulsante per il logout -->
+                    </form>
+            
+                    <!-- Modulo separato per il pulsante Logout -->
+                    <form method="POST" action="/logout">
+                        @csrf
                         <x-form-button>
                             Log out
                         </x-form-button>
                     </form>
                 @endauth
-
-
-
+            </div>
+            
             </div>
         </nav>
     </div>
@@ -63,7 +64,7 @@
 
         @auth
             <div>
-                <x-button href="/products/create">Vendi materiale</x-button>
+                <x-forms.button href="/products/create">Vendi materiale</x-forms.button>
             </div>
         @endauth
         
