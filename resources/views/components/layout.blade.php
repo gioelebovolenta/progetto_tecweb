@@ -49,18 +49,28 @@
                 @endauth
             </div>
             
-            </div>
         </nav>
     </div>
     
 
     <!-- HEADER -->
     <header class="flex h-20 items-center justify-between px-10 bg-white shadow">
-        <div class="space-x-3">
-            <x-tag>Libri</x-tag>
-            <x-tag>Appunti</x-tag>
-            <x-tag>Esami</x-tag>
+        <div class="flex items-center space-x-3">
+            <x-tag href="{{ route('products.type', 'Libri') }}">Libri</x-tag>
+            <x-tag href="{{ route('products.type', 'Appunti') }}">Appunti</x-tag>
+            <x-tag href="{{ route('products.type', 'Esami') }}">Esami</x-tag>
+    
+            <!-- Barra di ricerca accanto ai tag-->
+            <x-forms.form action="/search" method="GET" class="ml-4">
+                <x-forms.input :label="false" name="q" placeholder="Cerca materiale" style="height: 44px;" class="rounded-xl px-5 py-2 border hover:border-gray-400 transition-colors duration-300 w-60" />
+            </x-forms.form>
         </div>
+    
+        {{-- @auth
+            <div>
+                <x-forms.button href="/products/create">Vendi materiale</x-forms.button>
+            </div>
+        @endauth --}}
 
         @auth
             @if (auth()->user()->email !== config('app.admin_email'))
@@ -69,7 +79,6 @@
                 </div>
             @endif
         @endauth
-        
     </header>
 
     <!-- MAIN -->

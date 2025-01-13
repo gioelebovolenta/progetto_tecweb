@@ -95,13 +95,43 @@ class ProductController extends Controller
     return redirect('/products/published')->with('success', 'Materiale caricato con successo!');
 }
 
+    public function published()
+    {
+        // Esegui logica aggiuntiva, se necessaria
+        return view('products.published');
+    }
+
+
 
     /**
      * Display the specified resource.
      */
     public function show(Product $product)
     {
-        //
+    return view('products.show', compact('product'));
+    }
+
+    public function download(Product $product)
+    {
+    if (!$product->file_path || !Storage::disk('public')->exists($product->file_path)) {
+        return back()->withErrors(['file' => 'Il file PDF non esiste o non è disponibile.']);
+    }
+
+    return Storage::disk('public')->download($product->file_path);
+    }
+
+    public function filterByType(string $type)
+    {
+    // Valida il tipo
+    if (!in_array($type, ['Libri', 'Appunti', 'Esami'])) {
+        abort(404, 'Tipo non valido');
+    }
+
+    // Recupera i prodotti filtrati
+    $products = Product::where('type', $type)->get();
+
+    // Passa i prodotti alla vista
+    return view('products.filtered', compact('products', 'type'));
     }
 
     /**

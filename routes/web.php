@@ -11,11 +11,12 @@ Route::get('/', [ProductController::class, 'index']);
 
 Route::get('/products/create', [ProductController::class, 'create'])->middleware('auth');
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth');
-Route::get('/products/published', function () {
-    return view('products.published');
-});
+Route::get('/products/published', [ProductController::class, 'published'])->middleware('auth');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}/download', [ProductController::class, 'download'])->name('products.download');
+Route::get('/products/type/{type}', [ProductController::class, 'filterByType'])->name('products.type');
 
-Route::get('/search', SearchController::class);
+Route::get('/search', SearchController::class)->name('search');
 
 // Rotta per la dashboard con reindirizzamento basato sul ruolo
 Route::get('/dashboard', function () {
@@ -56,6 +57,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/user/products/{id}', [App\Http\Controllers\UserController::class, 'deleteProduct'])->name('user.delete-product');
     Route::patch('/user/products/{id}', [App\Http\Controllers\UserController::class, 'updateProduct'])->name('user.update-product');
 });
-
 
 require __DIR__.'/auth.php';
