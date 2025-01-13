@@ -63,9 +63,11 @@
         </div>
 
         @auth
-            <div>
-                <x-forms.button href="/products/create">Vendi materiale</x-forms.button>
-            </div>
+            @if (auth()->user()->email !== config('app.admin_email'))
+                <div>
+                    <x-forms.button href="/products/create">Vendi materiale</x-forms.button>
+                </div>
+            @endif
         @endauth
         
     </header>

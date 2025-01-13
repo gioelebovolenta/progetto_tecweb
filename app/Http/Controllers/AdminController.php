@@ -13,9 +13,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // Conta il totale degli utenti e dei materiali
-        $totalUsers = User::count();
-        $totalProducts = Product::count(); // Modifica se il modello ha un nome diverso
+        // Conteggio degli utenti escluso l'admin
+        $totalUsers = User::where('email', '!=', config('app.admin_email'))->count();
+        // Conteggio dei prodotti
+        $totalProducts = Product::count();
 
         // Passa i dati alla vista
         return view('admin.dashboard', compact('totalUsers', 'totalProducts'));
@@ -24,10 +25,16 @@ class AdminController extends Controller
     public function users(Request $request)
     {
         $query = $request->input('query');
+        
+        // Filtra gli utenti, escludendo l'admin
         $users = User::when($query, function ($q) use ($query) {
-            $q->where('name', 'like', "%$query%")
-            ->orWhere('email', 'like', "%$query%");
-        })->paginate(10); // Pagina di 10 utenti
+            $q->where(function ($subQuery) use ($query) {
+                $subQuery->where('name', 'like', "%$query%")
+                        ->orWhere('email', 'like', "%$query%");
+            });
+        })
+        ->where('email', '!=', config('app.admin_email')) // Esclude l'admin
+        ->paginate(10); // Pagina di 10 utenti
 
         return view('admin.users', compact('users'));
     }

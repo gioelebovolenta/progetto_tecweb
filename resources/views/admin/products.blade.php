@@ -5,6 +5,18 @@
         </h2>
     </x-slot>
 
+    @if (session('success'))
+        <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form method="GET" action="{{ route('admin.products.index') }}" class="mb-6">
@@ -15,10 +27,16 @@
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <table class="min-w-full table-auto">
                     <thead>
-                        <tr>
-                            <th class="px-6 py-3">Titolo</th>
-                            <th class="px-6 py-3">Descrizione</th>
-                            <th class="px-6 py-3">Azione</th>
+                        <tr class="bg-gray-100">
+                            <th class="px-6 py-3 text-sm font-semibold text-gray-600 text-left">
+                                Titolo
+                            </th>
+                            <th class="px-6 py-3 text-sm font-semibold text-gray-600 text-left">
+                                Descrizione
+                            </th>
+                            <th class="px-6 py-3 text-sm font-semibold text-gray-600 text-left">
+                                Azione
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

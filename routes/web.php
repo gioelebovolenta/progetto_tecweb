@@ -41,13 +41,21 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(
 
 // Rotte per l'area utenti
 Route::middleware('auth')->group(function () {
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
+    // Rotta per la dashboard utente
+    Route::get('/user/dashboard', [App\Http\Controllers\UserController::class, 'dashboard'])->name('user.dashboard');
 
+    // Gestione del profilo
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Rotte per la gestione dei prodotti
+    Route::get('/user/manage-products', [App\Http\Controllers\UserController::class, 'manageProducts'])->name('user.manage-products');
+    Route::get('/user/purchased-products', [App\Http\Controllers\UserController::class, 'purchasedProducts'])->name('user.purchased-products');
+    Route::get('/user/products/{id}/edit', [App\Http\Controllers\UserController::class, 'editProduct'])->name('user.edit-product');
+    Route::delete('/user/products/{id}', [App\Http\Controllers\UserController::class, 'deleteProduct'])->name('user.delete-product');
+    Route::patch('/user/products/{id}', [App\Http\Controllers\UserController::class, 'updateProduct'])->name('user.update-product');
 });
+
 
 require __DIR__.'/auth.php';
