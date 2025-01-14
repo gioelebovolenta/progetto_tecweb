@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [ProductController::class, 'index']);
 
@@ -54,8 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/manage-products', [App\Http\Controllers\UserController::class, 'manageProducts'])->name('user.manage-products');
     Route::get('/user/purchased-products', [App\Http\Controllers\UserController::class, 'purchasedProducts'])->name('user.purchased-products');
     Route::get('/user/products/{id}/edit', [App\Http\Controllers\UserController::class, 'editProduct'])->name('user.edit-product');
-    Route::delete('/user/products/{id}', [App\Http\Controllers\UserController::class, 'deleteProduct'])->name('user.delete-product');
-    Route::patch('/user/products/{id}', [App\Http\Controllers\UserController::class, 'updateProduct'])->name('user.update-product');
+    Route::delete('/user/delete-product/{id}', [UserController::class, 'deleteProduct'])->name('user.delete-product');
+/*     Route::delete('/user/products/{id}', [App\Http\Controllers\UserController::class, 'deleteProduct'])->name('user.delete-product');
+ */    Route::patch('/user/products/{id}', [App\Http\Controllers\UserController::class, 'updateProduct'])->name('user.update-product');
 });
 
 require __DIR__.'/auth.php';

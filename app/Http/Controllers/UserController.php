@@ -71,14 +71,13 @@ class UserController extends Controller
 
     public function deleteProduct($id)
     {
-        $product = Product::find($id);
-
-        if (!$product) {
-            return redirect()->back()->with('error', 'Prodotto non trovato');
-        }
-
+    try {
+        $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('user.manage-products')->with('success', 'Prodotto eliminato con successo');
+        return response()->json(['success' => true, 'message' => 'Prodotto eliminato con successo.']);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => 'Errore durante l\'eliminazione del prodotto.']);
+        }
     }
 }
