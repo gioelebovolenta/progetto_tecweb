@@ -18,11 +18,12 @@ class ProductController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('products.index', [
-            'products' => Product::all(),
-        ]);
-    }
+{
+    $products = Product::availableForOthers()->get();
+    return view('products.index', compact('products'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -113,6 +114,11 @@ class ProductController extends Controller
 
     public function download(Product $product)
 {
+    // Verifica che il prodotto non appartenga all'utente autenticato
+    if ($product->user_id == auth()->id()) {
+        return redirect()->back()->with('error', 'Non puoi acquistare il tuo stesso prodotto.');
+    }
+
     // Verifica se il file esiste
     if (!$product->file_path || !Storage::disk('public')->exists($product->file_path)) {
         return back()->withErrors(['file' => 'Il file PDF non esiste o non è disponibile.']);
@@ -129,20 +135,23 @@ class ProductController extends Controller
 }
 
 
+
     public function filterByType(string $type)
     {
-    // Valida il tipo
-    if (!in_array($type, ['Libri', 'Appunti', 'Esami'])) {
-        abort(404, 'Tipo non valido');
+        // Valida il tipo
+        if (!in_array($type, ['Libri', 'Appunti', 'Esami'])) {
+            abort(404, 'Tipo non valido');
+        }
+
+        // Recupera i prodotti filtrati e non appartenenti all'utente autenticato
+        $products = Product::availableForOthers()->where('type', $type)->get();
+
+        return view('products.filtered', compact('products', 'type'));
     }
 
-    // Recupera i prodotti filtrati
-    $products = Product::where('type', $type)->get();
 
-    // Passa i prodotti alla vista
-    return view('products.filtered', compact('products', 'type'));
-    }
 
+    
     /**
      * Show the form for editing the specified resource.
      */

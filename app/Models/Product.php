@@ -19,4 +19,10 @@ class Product extends Model
         'pages',
         'user_id',
     ];
+
+    public function scopeAvailableForOthers($query)
+    {
+    return $query->where('user_id', '!=', auth()->id());
+    }
+
 }
