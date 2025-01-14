@@ -33,7 +33,7 @@
                         @foreach ($products as $product)
                         <tr>
                             <td class="px-6 py-4 text-sm text-gray-800">{{ $product->title }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-600">{{ $product->price }} €</td>
+                            <td class="px-6 py-4 text-sm text-gray-600">{{ number_format($product->price, 2, '.', '') }} €</td>
                             <td class="px-6 py-4 flex space-x-2">
                                 <a href="{{ route('user.edit-product', $product->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
                                     Modifica

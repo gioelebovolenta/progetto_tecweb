@@ -112,13 +112,22 @@ class ProductController extends Controller
     }
 
     public function download(Product $product)
-    {
+{
+    // Verifica se il file esiste
     if (!$product->file_path || !Storage::disk('public')->exists($product->file_path)) {
         return back()->withErrors(['file' => 'Il file PDF non esiste o non è disponibile.']);
     }
 
-    return Storage::disk('public')->download($product->file_path);
+    // Collega l'acquisto nella tabella purchases
+    $user = Auth::user();
+    if (!$user->purchasedProducts->contains($product->id)) {
+        $user->purchasedProducts()->attach($product->id);
     }
+
+    // Esegui il download del file
+    return Storage::disk('public')->download($product->file_path);
+}
+
 
     public function filterByType(string $type)
     {

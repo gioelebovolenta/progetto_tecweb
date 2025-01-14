@@ -12,16 +12,17 @@ class UserController extends Controller
     
     public function dashboard()
     {
-        $user = Auth::user();
-        
-        // Conta i prodotti caricati dall'utente
-        $productsForSale = Product::where('user_id', $user->id)->count();
-        
-        // Conta i prodotti acquistati dall'utente
-        $purchasedProducts = $user->purchasedProducts()->count(); // Supponendo che ci sia una relazione
+    $user = Auth::user();
 
-        return view('user.dashboard', compact('productsForSale', 'purchasedProducts'));
+    // Conta i prodotti caricati dall'utente
+    $productsForSale = Product::where('user_id', $user->id)->count();
+
+    // Conta i prodotti acquistati dall'utente
+    $purchasedProducts = $user->purchasedProducts()->count();
+
+    return view('user.dashboard', compact('productsForSale', 'purchasedProducts'));
     }
+
 
     public function manageProducts()
     {

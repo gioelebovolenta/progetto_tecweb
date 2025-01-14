@@ -13,19 +13,25 @@
                     @method('PATCH')
 
                     <div class="mb-4">
-                        <label for="title" class="block text-sm font-medium text-gray-700">Titolo</label>
+                        <label for="title" class="block text-sm font-medium text-gray-700">Materia</label>
                         <input type="text" name="title" id="title" value="{{ $product->title }}" class="border rounded px-4 py-2 w-full">
                     </div>
 
                     <div class="mb-4">
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Facoltà</label>
+                        <input type="text" name="subject" id="subject" value="{{ $product->subject }}" class="border rounded px-4 py-2 w-full">
+                    </div>
+
+                    <div class="mb-4">
                         <label for="description" class="block text-sm font-medium text-gray-700">Descrizione</label>
-                        <textarea name="description" id="description" class="border rounded px-4 py-2 w-full">{{ $product->description }}</textarea>
+                        <textarea name="description" id="description" class="border rounded px-4 py-2 w-full" rows="6">{{ $product->description }}</textarea>
                     </div>
 
                     <div class="mb-4">
                         <label for="price" class="block text-sm font-medium text-gray-700">Prezzo</label>
-                        <input type="number" name="price" id="price" value="{{ $product->price }}" class="border rounded px-4 py-2 w-full">
+                        <input type="number" name="price" id="price" value="{{ $product->price }}" step="0.01" min="0" class="border rounded px-4 py-2 w-full">
                     </div>
+                    
 
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Aggiorna Prodotto
