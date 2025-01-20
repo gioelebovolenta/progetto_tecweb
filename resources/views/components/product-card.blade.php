@@ -3,7 +3,7 @@
 <x-panel>
     <div class="d-flex flex-column flex-grow-1">
         <!-- Facoltà o materia -->
-        <a href="#" class="text-muted small mb-2">
+        <a class="text-muted small mb-2">
             {{ $product->subject }}
         </a>
 
