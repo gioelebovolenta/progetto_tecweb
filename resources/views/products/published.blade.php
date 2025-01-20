@@ -1,7 +1,9 @@
 <x-layout>
-    <x-page-heading>Materiale caricato con successo!</x-page-heading>
+    <div class="container text-center my-5">
+        <h1 class="fw-bold mb-4">Materiale caricato con successo!</h1>
 
-    <div class="flex items-center justify-center h-64">
-        <x-forms.button href="/">Home page</x-forms.button>
+        <div class="d-flex justify-content-center align-items-center" style="height: 16rem;">
+            <a href="/" class="btn btn-primary btn-lg">Home page</a>
+        </div>
     </div>
 </x-layout>

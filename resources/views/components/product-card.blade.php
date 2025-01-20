@@ -1,22 +1,26 @@
 @props(['product'])
 
 <x-panel>
-    <div class="flex-1 flex flex-col">
+    <div class="d-flex flex-column flex-grow-1">
         <!-- Facoltà o materia -->
-        <a class="self-start text-sm text-gray-400 transition-colors duration-300">
+        <a href="#" class="text-muted small mb-2">
             {{ $product->subject }}
         </a>
 
         <!-- Titolo del prodotto -->
-        <h3 class="font-bold text-xl mt-3 group-hover:text-blue-600 transition-colors duration-300 ml-28">
-            <a href="{{ route('products.show', $product->id) }}">
+        <h3 class="fw-bold fs-4 mt-3 ms-4">
+            <a href="{{ route('products.show', $product->id) }}" class="text-dark text-decoration-none hover-link">
                 {{ $product->title }}
             </a>
         </h3>
         
         <!-- Pagine e prezzo -->
-        <p class="text-sm text-gray-400 mt-auto ml-28">
-            {{ $product->pages }} pagine - €{{ $product->price }}
+        <p class="text-muted small mt-auto ms-4">
+            @if(!empty($product->pages))
+                {{ $product->pages }} {{ $product->pages === 1 ? 'pagina' : 'pagine' }} - €{{ number_format($product->price, 2, ',', '.') }}
+            @else
+                <em>Numero di pagine non disponibile</em> - €{{ number_format($product->price, 2, ',', '.') }}
+            @endif
         </p>
     </div>
 

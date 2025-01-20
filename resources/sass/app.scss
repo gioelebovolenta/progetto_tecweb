@@ -1,0 +1,11 @@
+// Importa i moduli o plugin che stai utilizzando (es. Bootstrap)
+@use "bootstrap/scss/bootstrap" as *;
+
+// Scrivi qui i tuoi stili personalizzati
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: blue;
+}

@@ -1,9 +1,13 @@
 <x-layout>
-    <x-page-heading>Risultati ricerca</x-page-heading>
+    <div class="container my-5">
+        <h1 class="fw-bold mb-4 text-center">Risultati ricerca</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-        @foreach ($products as $product)
-            <x-product-card :$product />
-        @endforeach
+        <div class="row g-4">
+            @foreach ($products as $product)
+                <div class="col-12 col-md-6 col-lg-4">
+                    <x-product-card :$product />
+                </div>
+            @endforeach
+        </div>
     </div>
 </x-layout>

@@ -1,5 +1,5 @@
-@props(['error' => false])
-
-@if ($error)
-    <p class="text-sm text-red-500 mt-1">{{ $error }}</p>
+@if ($errors->has($name))
+    <div {{ $attributes->merge(['class' => 'text-danger small']) }}>
+        {{ $errors->first($name) }}
+    </div>
 @endif

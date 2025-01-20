@@ -9,20 +9,22 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    
     public function dashboard()
     {
-    $user = Auth::user();
+        $user = Auth::user();
 
-    // Conta i prodotti caricati dall'utente
-    $productsForSale = Product::where('user_id', $user->id)->count();
+        if (!$user) {
+            return redirect()->route('login')->withErrors('Devi essere autenticato per accedere a questa pagina.');
+        }
 
-    // Conta i prodotti acquistati dall'utente
-    $purchasedProducts = $user->purchasedProducts()->count();
+        // Conta i prodotti caricati dall'utente
+        $productsForSale = Product::where('user_id', $user->id)->count();
 
-    return view('user.dashboard', compact('productsForSale', 'purchasedProducts'));
+        // Conta i prodotti acquistati dall'utente
+        $purchasedProducts = $user->purchasedProducts()->count();
+
+        return view('user.dashboard', compact('productsForSale', 'purchasedProducts'));
     }
-
 
     public function manageProducts()
     {
@@ -71,13 +73,13 @@ class UserController extends Controller
 
     public function deleteProduct($id)
     {
-    try {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
 
-        return response()->json(['success' => true, 'message' => 'Prodotto eliminato con successo.']);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'message' => 'Errore durante l\'eliminazione del prodotto.']);
+            return response()->json(['success' => true, 'message' => 'Prodotto eliminato con successo.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Errore durante l\'eliminazione del prodotto.']);
         }
     }
 }

@@ -1,34 +1,37 @@
-<x-app-layout>
+<x-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="h4 text-dark">
             {{ __('Admin Dashboard') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <!-- Infobox Utenti -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-700">Totale Utenti</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ $totalUsers }}</p>
-                </div>
-                <!-- Infobox Prodotti -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-700">Totale Prodotti</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ $totalProducts }}</p>
+    <div class="container py-4">
+        <div class="row mb-4">
+            <!-- Infobox Utenti -->
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h6 fw-bold text-secondary">Totale Utenti</h3>
+                        <p class="fs-3 fw-bold text-dark">{{ $totalUsers }}</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Pulsanti Gestione -->
-            <div class="flex space-x-4">
-                <a href="{{ route('admin.users.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Gestisci Utenti
-                </a>
-                <a href="{{ route('admin.products.index') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    Gestisci Prodotti
-                </a>
+            <!-- Infobox Prodotti -->
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h6 fw-bold text-secondary">Totale Prodotti</h3>
+                        <p class="fs-3 fw-bold text-dark">{{ $totalProducts }}</p>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Pulsanti Gestione -->
+        <div class="d-flex justify-content-start gap-3">
+            <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Gestisci Utenti</a>
+            <a href="{{ route('admin.products.index') }}" class="btn btn-success">Gestisci Prodotti</a>
+        </div>
     </div>
-</x-app-layout>
+</x-layout>

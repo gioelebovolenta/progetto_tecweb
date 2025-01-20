@@ -1,11 +1,15 @@
 <x-layout>
-    <x-page-heading>{{ ucfirst($type) }}</x-page-heading>
+    <div class="container my-5">
+        <h1 class="fw-bold text-capitalize mb-4">{{ ucfirst($type) }}</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-        @forelse ($products as $product)
-            <x-product-card :product="$product" />
-        @empty
-            <p class="text-center col-span-full text-gray-500">Nessun prodotto trovato.</p>
-        @endforelse
+        <div class="row g-4">
+            @forelse ($products as $product)
+                <div class="col-12 col-md-6 col-lg-4">
+                    <x-product-card :product="$product" />
+                </div>
+            @empty
+                <p class="text-center text-muted">Nessun prodotto trovato.</p>
+            @endforelse
+        </div>
     </div>
 </x-layout>

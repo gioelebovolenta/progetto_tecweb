@@ -1,15 +1,6 @@
-@props(['label', 'name', 'accept' => 'application/pdf'])
-
-@php
-    $defaults = [
-        'type' => 'file',
-        'id' => $name,
-        'name' => $name,
-        'class' => 'rounded-xl bg-white border border-gray-300 px-5 py-4 w-full',
-        'accept' => $accept,
-    ];
-@endphp
-
-<x-forms.field :$label :$name>
-    <input {{ $attributes($defaults) }}>
-</x-forms.field>
+<div class="mb-3">
+    <label for="{{ $name }}" class="form-label">
+        {{ $label ?? ucfirst($name) }}
+    </label>
+    <input type="file" id="{{ $name }}" name="{{ $name }}" {{ $attributes->merge(['class' => 'form-control']) }}>
+</div>

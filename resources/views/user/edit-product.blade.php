@@ -1,43 +1,74 @@
-<x-app-layout>
+<x-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="h4 fw-bold text-dark">
             {{ __('Modifica Prodotto') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <form method="POST" action="{{ route('user.update-product', $product->id) }}">
-                    @csrf
-                    @method('PATCH')
+    <div class="py-5">
+        <div class="container">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('user.update-product', $product->id) }}">
+                        @csrf
+                        @method('PATCH')
 
-                    <div class="mb-4">
-                        <label for="title" class="block text-sm font-medium text-gray-700">Materia</label>
-                        <input type="text" name="title" id="title" value="{{ $product->title }}" class="border rounded px-4 py-2 w-full">
-                    </div>
+                        <!-- Materia -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">{{ __('Materia') }}</label>
+                            <input 
+                                type="text" 
+                                name="title" 
+                                id="title" 
+                                value="{{ $product->title }}" 
+                                class="form-control" 
+                                required>
+                        </div>
 
-                    <div class="mb-4">
-                        <label for="subject" class="block text-sm font-medium text-gray-700">Facoltà</label>
-                        <input type="text" name="subject" id="subject" value="{{ $product->subject }}" class="border rounded px-4 py-2 w-full">
-                    </div>
+                        <!-- Facoltà -->
+                        <div class="mb-3">
+                            <label for="subject" class="form-label fw-bold">{{ __('Facoltà') }}</label>
+                            <input 
+                                type="text" 
+                                name="subject" 
+                                id="subject" 
+                                value="{{ $product->subject }}" 
+                                class="form-control" 
+                                required>
+                        </div>
 
-                    <div class="mb-4">
-                        <label for="description" class="block text-sm font-medium text-gray-700">Descrizione</label>
-                        <textarea name="description" id="description" class="border rounded px-4 py-2 w-full" rows="6">{{ $product->description }}</textarea>
-                    </div>
+                        <!-- Descrizione -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">{{ __('Descrizione') }}</label>
+                            <textarea 
+                                name="description" 
+                                id="description" 
+                                class="form-control" 
+                                rows="6" 
+                                required>{{ $product->description }}</textarea>
+                        </div>
 
-                    <div class="mb-4">
-                        <label for="price" class="block text-sm font-medium text-gray-700">Prezzo</label>
-                        <input type="number" name="price" id="price" value="{{ $product->price }}" step="0.01" min="0" class="border rounded px-4 py-2 w-full">
-                    </div>
-                    
+                        <!-- Prezzo -->
+                        <div class="mb-3">
+                            <label for="price" class="form-label fw-bold">{{ __('Prezzo') }}</label>
+                            <input 
+                                type="number" 
+                                name="price" 
+                                id="price" 
+                                value="{{ $product->price }}" 
+                                step="0.01" 
+                                min="0" 
+                                class="form-control" 
+                                required>
+                        </div>
 
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Aggiorna Prodotto
-                    </button>
-                </form>
+                        <!-- Pulsante di Invio -->
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Aggiorna Prodotto') }}
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-layout>

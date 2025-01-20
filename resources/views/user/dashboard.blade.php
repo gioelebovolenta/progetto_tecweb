@@ -1,37 +1,49 @@
-<x-app-layout>
+<x-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h4 fw-bold text-dark">
                 {{ __('User Dashboard') }}
             </h2>
-            <x-forms.button href="/products/create">Vendi materiale</x-forms.button>
+            <a href="/products/create" class="btn btn-primary">
+                Vendi materiale
+            </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <!-- Infobox: Prodotti in vendita -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-700">Prodotti in vendita</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ $productsForSale }}</p>
+    <div class="py-5">
+        <div class="container">
+            <!-- Infoboxes -->
+            <div class="row mb-4">
+                <!-- Prodotti in vendita -->
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="h6 fw-bold text-secondary">Prodotti in vendita</h3>
+                            <p class="fs-3 fw-bold text-dark">{{ $productsForSale }}</p>
+                        </div>
+                    </div>
                 </div>
-                <!-- Infobox: Prodotti acquistati -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-700">Prodotti acquistati</h3>
-                    <p class="text-3xl font-bold text-gray-900">{{ $purchasedProducts }}</p>
+
+                <!-- Prodotti acquistati -->
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="h6 fw-bold text-secondary">Prodotti acquistati</h3>
+                            <p class="fs-3 fw-bold text-dark">{{ $purchasedProducts }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Pulsanti Gestione -->
-            <div class="flex space-x-4">
-                <a href="{{ route('user.manage-products') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <div class="d-flex gap-3">
+                <a href="{{ route('user.manage-products') }}" class="btn btn-primary">
                     Gestisci Materiale in Vendita
                 </a>
-                <a href="{{ route('user.purchased-products') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('user.purchased-products') }}" class="btn btn-success">
                     Materiale Acquistato
                 </a>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-layout>
