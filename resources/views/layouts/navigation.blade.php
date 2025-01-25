@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 border-bottom">
+{{-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 border-bottom">
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand d-flex align-items-center" href="/">
@@ -42,3 +42,4 @@
         </div>
     </div>
 </nav>
+ --}}

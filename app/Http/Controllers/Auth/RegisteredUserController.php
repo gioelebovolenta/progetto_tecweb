@@ -32,15 +32,30 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                'unique:' . User::class,
+            ],
             'password' => [
                 'required',
                 'confirmed',
-                Password::min(8) // Lunghezza minima 8 caratteri
-                    ->mixedCase() // Almeno una lettera maiuscola e minuscola
+                Password::min(8) // Lunghezza minima 8 caratteri 
+                    ->mixedCase() // Almeno una lettera maiuscola e una minuscola
                     ->numbers() // Almeno un numero
                     ->symbols(), // Almeno un carattere speciale
             ],
+        ], [
+            'password.min' => 'The password must contain at least :min characters.',
+            'password.mixedCase' => 'The password must contain at least one uppercase and one lowercase letter.',
+            'password.numbers' => 'The password must contain at least one number.',
+            'password.symbols' => 'The password must contain at least one special character.',
+            'password.confirmed' => 'The password confirmation does not match.',
+            'email.unique' => 'The email you entered is already registered.',
+
         ]);
 
         $user = User::create([
@@ -54,5 +69,5 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
-    }
+    }   
 }

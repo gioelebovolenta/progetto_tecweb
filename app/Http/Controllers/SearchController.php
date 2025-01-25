@@ -19,6 +19,6 @@ class SearchController extends Controller
             })
             ->get();
 
-        return view('results', ['products' => $products]);
+        return view('products.results', ['products' => $products]);
     }
 }
